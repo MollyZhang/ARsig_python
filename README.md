@@ -1,9 +1,18 @@
-# ARsig_python
-Explore Androgen Receptor Signature in Castration-Resistant Prostate Cancer with Linear Regression
+# CPRC_signatures
+Explore Various biological signature in Castration-Resistant Prostate Cancer.
+## AR signature
+
+
+## NEPC signature
+
+
+## data
+### cell line data
+### WCDT samples (patient)
+### OHSU data (?)
 
 
 # Run juypter notebook in your laptop browser from a ssh server
-
 on server:
 `jupyter notebook --no-browser`
 
