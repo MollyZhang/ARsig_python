@@ -12,6 +12,9 @@ from bokeh.io import output_notebook
 # machine learning
 from sklearn import linear_model
 
+# misc
+from pprint import pprint as pp
+
 # my own module in the same repo
 import helper
 
