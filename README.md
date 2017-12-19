@@ -1,18 +1,18 @@
 # CPRC_signatures
 Explore Various biological signature in Castration-Resistant Prostate Cancer.
+
+## Jupyter Notebook:
 ### 1. AR signature
-> yada yada
+see ARsig.ipynb
 
 ### 2. NEPC signature
-> musha musha
+see NEPCsig.ipynb
 
-# Data
-### 1. cell line data
-### 2. WCDT samples (patient)
-### 3. OHSU data (?)
+## Data (on server bop.soe.ucsc.edu)
+RNA-seq: `/projects/sysbio/users/WCDT/Data/mRNA_Seq/CombatCorrection/out.tsv`
+Pathology calls: `/projects/sysbio/users/WCDT/Data/SampleInfo/Clinical/Wcdt/cleaned_up_pathology_calls.tsv`
 
-
-# Run juypter notebook in your laptop browser from a ssh server
+## How to run juypter notebook in your laptop browser from a ssh server
 1. on server:
 `jupyter notebook --no-browser`
 
