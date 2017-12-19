@@ -9,7 +9,7 @@ see ARsig.ipynb
 see NEPCsig.ipynb
 
 ## Data (on server bop.soe.ucsc.edu)
-RNA-seq: `/projects/sysbio/users/WCDT/Data/mRNA_Seq/CombatCorrection/out.tsv`
+RNA-seq: `/projects/sysbio/users/WCDT/Data/mRNA_Seq/CombatCorrection/out.tsv`  
 Pathology calls: `/projects/sysbio/users/WCDT/Data/SampleInfo/Clinical/Wcdt/cleaned_up_pathology_calls.tsv`
 
 ## How to run juypter notebook in your laptop browser from a ssh server
