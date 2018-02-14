@@ -8,11 +8,15 @@ see ARsig.ipynb
 ### 2. NEPC signature
 see NEPCsig.ipynb
 
+### 3. RB1 signature
+see RBsig.ipynb
+
 ## Data (on server bop.soe.ucsc.edu)
 RNA-seq: `/projects/sysbio/users/WCDT/Data/mRNA_Seq/CombatCorrection/out.tsv`  
 Pathology calls: `/projects/sysbio/users/WCDT/Data/SampleInfo/Clinical/Wcdt/cleaned_up_pathology_calls.tsv`
+TCGA: `/projects/sysbio/users/PANCANATLAS/Data`
 
-## How to run juypter notebook in your laptop browser from a ssh server
+### How to run juypter notebook in your laptop browser from a ssh server
 1. on server:
 `jupyter notebook --no-browser`
 
