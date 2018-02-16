@@ -8,6 +8,7 @@ def leave_pair_out_cv(X, Y, classifier):
     label = Y.columns[0]
     pairs = get_all_01_pairs(Y)
     auc = []
+    print("Total cross validation folds: ", len(pairs))
     for pair in pairs:
         print(".", end="")
         X_train = X[~X.index.isin(pair)]
