@@ -5,7 +5,8 @@ from sklearn.metrics import roc_auc_score
 
 
 def stratified_cv(X, y, clf, folds=10, random_state=0):
-    skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=1)
+    skf = StratifiedKFold(n_splits=folds, 
+                          shuffle=True, random_state=random_state)
     skf.get_n_splits(X, y)
     result_df = pd.DataFrame()
     fold_num = 0
