@@ -1,4 +1,27 @@
 import numpy as np
+import pandas as pd
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import roc_auc_score
+
+
+def stratified_cv(X, y, clf, folds=10, random_state=0):
+    skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=1)
+    skf.get_n_splits(X, y)
+    result_df = pd.DataFrame()
+    fold_num = 0
+    genes_used = []
+    for train_idx, test_idx in skf.split(X, y):
+        fold_num += 1
+        print(fold_num, end=",")
+        X_train, X_test = X[train_idx], X[test_idx]
+        y_train, y_test = y[train_idx], y[test_idx]
+        clf.fit(X_train, y_train)
+        y_pred = clf.predict(X_test)
+        test_auc = roc_auc_score(y_test, y_pred)
+        train_auc = roc_auc_score(y_train, clf.predict(X_train))
+        result_df.loc["train AUC", fold_num] = train_auc
+        result_df.loc["test AUC", fold_num] = test_auc
+    return result_df
 
 
 def leave_pair_out_cv(X, Y, classifier):
