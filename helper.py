@@ -25,50 +25,43 @@ def stratified_cv(X, y, clf, folds=10, random_state=0):
     return result_df
 
 
-def leave_pair_out_cv(X, Y, classifier):
+def leave_pair_out_cv(X, y, classifier):
     """ Leave pair out cross validation as defined in this paper:
         http://www.jmlr.org/proceedings/papers/v8/airola10a/airola10a.pdf
     """
-    label = Y.columns[0]
-    pairs = get_all_01_pairs(Y)
+    folds = get_all_01_pairs(y)
     auc = []
-    print("Total cross validation folds: ", len(pairs))
-    for pair in pairs:
+    print("Total cross validation folds: ", len(folds))
+    for fold in folds:
         print(".", end="")
-        X_train = X[~X.index.isin(pair)]
-        Y_train = Y[~Y.index.isin(pair)]
-        X_test = X[X.index.isin(pair)]
-        Y_test = Y[Y.index.isin(pair)]
-        assert(list(X_train.index)==list(Y_train.index))
-        assert(list(X_test.index)==list(Y_test.index))        
-        classifier.fit(X_train, np.array(list(Y_train[label])))
-        coef = classifier.coef_[0]
-        Y_pred = np.matmul(X_test, coef)        
-        auc.append(calc_auc_cv(Y_pred, Y_test))
-    auc = float(sum(auc))/len(pairs)
+        X_train = X[fold["train"]]
+        y_train = y[fold["train"]]
+        X_test = X[fold["test"]]
+        y_test = y[fold["test"]]
+        classifier.fit(X_train, y_train)
+        y_pred = classifier.predict(X_test)
+        auc.append(calc_auc_cv(y_pred, y_test))
+    auc = float(sum(auc))/len(folds)
     return auc
 
 
-def get_all_01_pairs(Y):
-    pairs = []
-    label = Y.columns[0]
-    zeros = Y[Y[label]==0].index
-    ones = Y[Y[label]==1].index    
+def get_all_01_pairs(y):
+    folds = []
+    zeros = np.arange(y.shape[0])[y==0]
+    ones = np.arange(y.shape[0])[y==1]
+    y_idx = np.arange(y.shape[0])
     for zero in zeros:
         for one in ones:
-            pairs.append((zero, one))
-    return pairs
+            folds.append({"train": y_idx[[i for i in y_idx if i not in (zero, one)]], 
+                          "test": np.array([zero, one])})
+    return folds
 
 
-def calc_auc_cv(Y_pred, Y_test):
-    Y_test = list(Y_test[Y_test.columns[0]])
-    assert(Y_test[1] != Y_test[0])
-    if Y_test[1] > Y_test[0]:
-        zero = Y_pred[0]
-        one = Y_pred[1]
-    else:
-        zero = Y_pred[1]
-        one = Y_pred[0]
+def calc_auc_cv(y_pred, y_test):
+    assert(y_test[1] == 1)
+    assert(y_test[0] == 0)
+    zero = y_pred[0]
+    one = y_pred[1]
     if zero == one:
         return 0.5
     elif zero < one:
